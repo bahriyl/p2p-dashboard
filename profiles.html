@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Create Profiles</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="profiles.js" defer></script>
+</head>
+<body>
+  <h1>Create a Profile</h1>
+  <form id="profile-form">
+    <label>
+      Asset
+      <input type="text" id="asset" required />
+    </label>
+    <label>
+      Pay Types (comma-separated)
+      <input type="text" id="payTypes" required />
+    </label>
+    <label>
+      Trade Type
+      <input type="text" id="tradeType" required />
+    </label>
+    <label>
+      Transaction Amount
+      <input type="number" id="transAmount" required />
+    </label>
+    <button type="submit">Save Profile</button>
+  </form>
+
+  <h2>Existing Profiles</h2>
+  <ul id="profile-list"></ul>
+</body>
+</html>
