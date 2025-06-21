@@ -1,4 +1,4 @@
-const BASE_API_URL = "http://192.168.42.192:5001";
+const BASE_API_URL = "https://memoria-test-app-ifisk.ondigitalocean.app";
 
 // Load an array of profiles from localStorage.
 // Each profile should include a `section` field:
