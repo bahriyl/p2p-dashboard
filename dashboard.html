@@ -1,13 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
 <head>
   <meta charset="UTF-8" />
-  <title>Main Dashboard</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>032_Cr3pto Dashboard</title>
   <link rel="stylesheet" href="styles.css" />
-  <script src="dashboard.js" defer></script>
 </head>
 <body>
-  <h1>Dashboard</h1>
-  <div id="dashboard"></div>
+  <div class="app">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar__logo">032_Cr3pto</div>
+      <nav class="sidebar__nav">
+        <a href="#" class="sidebar__link active">Дашборд</a>
+        <a href="/profiles.html" class="sidebar__link">Оголошення</a>
+      </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+      <!-- Section: Мої позиції -->
+      <section class="section">
+        <h2 class="section__title">Мої позиції</h2>
+        <div id="positions" class="cards-container"></div>
+      </section>
+
+      <!-- Section: Стакани -->
+      <section class="section">
+        <h2 class="section__title">Стакани</h2>
+        <div id="glasses" class="cards-container"></div>
+      </section>
+    </main>
+  </div>
+
+  <script src="dashboard.js"></script>
 </body>
 </html>

@@ -1,34 +1,80 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Create Profiles</title>
-  <link rel="stylesheet" href="styles.css" />
-  <script src="profiles.js" defer></script>
-</head>
-<body>
-  <h1>Create a Profile</h1>
-  <form id="profile-form">
-    <label>
-      Asset
-      <input type="text" id="asset" required />
-    </label>
-    <label>
-      Pay Types (comma-separated)
-      <input type="text" id="payTypes" required />
-    </label>
-    <label>
-      Trade Type
-      <input type="text" id="tradeType" required />
-    </label>
-    <label>
-      Transaction Amount
-      <input type="number" id="transAmount" required />
-    </label>
-    <button type="submit">Save Profile</button>
-  </form>
+<html lang="uk">
 
-  <h2>Existing Profiles</h2>
-  <ul id="profile-list"></ul>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Оголошення</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="sidebar__logo">032_Cr3pto</div>
+      <nav class="sidebar__nav">
+        <a href="dashboard.html" class="sidebar__link">Дашборд</a>
+        <a href="profiles.html" class="sidebar__link active">Оголошення</a>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <section class="section">
+        <h2 class="section__title">Оголошення</h2>
+        <form id="profile-form" class="form-inline">
+          <select id="asset" required>
+            <option value="">Оберіть валюту</option>
+            <option value="USDT">USDT</option>
+            <option value="USDC">USDC</option>
+            <option value="USDC">BTC</option>
+            <option value="USDC">ETH</option>
+            <option value="USDC">BNB</option>
+          </select>
+
+          <select id="tradeType" required>
+            <option value="">Оберіть напрямок</option>
+            <option value="BUY">Купівля</option>
+            <option value="SELL">Продаж</option>
+          </select>
+
+          <div class="multiselect-wrapper">
+            <div class="multiselect-header" id="payTypesToggle">Оберіть банки ▾</div>
+            <div class="multiselect-options" id="payTypesOptions">
+              <label><input type="checkbox" value="Monobank" /> Monobank</label>
+              <label><input type="checkbox" value="ABank" /> ABank</label>
+              <label><input type="checkbox" value="PUMBBank" /> PUMBBank</label>
+              <label><input type="checkbox" value="PrivatBank" /> PrivatBank</label>
+              <label><input type="checkbox" value="Oschadbank" /> Oschadbank</label>
+              <label><input type="checkbox" value="KredoBank" /> KredoBank</label>
+              <label><input type="checkbox" value="SenseSuperApp" /> SenseSuperApp</label>
+              <label><input type="checkbox" value="Ukrsibbank" /> Ukrsibbank</label>
+              <label><input type="checkbox" value="AccordBank" /> AccordBank</label>
+              <label><input type="checkbox" value="Ukrgasbank" /> Ukrgasbank</label>
+              <label><input type="checkbox" value="BankPivdenny" /> BankPivdenny</label>
+              <label><input type="checkbox" value="izibank" /> izibank</label>
+              <label><input type="checkbox" value="PravexBank" /> PravexBank</label>
+              <label><input type="checkbox" value="Tascombank" /> Tascombank</label>
+              <label><input type="checkbox" value="BankVlasnyiRakhunok" /> BankVlasnyiRakhunok</label>
+            </div>
+          </div>
+
+          <input id="transAmount" type="number" placeholder="Введіть суму" required />
+
+          <select id="section" required>
+            <option value="">Оберіть тип</option>
+            <option value="positions">Позиція</option>
+            <option value="glasses">Стакан</option>
+          </select>
+
+          <button type="submit">Додати</button>
+        </form>
+
+        <ul id="profile-list" class="profile-list"></ul>
+      </section>
+    </main>
+  </div>
+
+  <script src="profiles.js"></script>
 </body>
+
 </html>

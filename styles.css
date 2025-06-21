@@ -1,41 +1,353 @@
+/* ---------- ROOT & RESET ---------- */
+:root {
+  --bg: #121212;
+  --fg: #e0e0e0;
+  --fade: #777;
+  --card: #1f1f1f;
+  --divider: #333;
+  --sell: #e03e3e;
+  --buy: #3ee03e;
+  --highlight: #3ee03e;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background: #f9f9f9;
+  font-family: "Inter", sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ---------- LAYOUT ---------- */
+.app {
+  display: flex;
+  height: 100%;
+}
+
+.sidebar {
+  width: 200px;
+  background: #0f0f0f;
+  padding: 32px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.sidebar__logo {
+  font-size: 1.25rem;
+  margin-bottom: 32px;
+}
+
+.sidebar__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sidebar__link {
+  text-decoration: none;
+  color: var(--fg);
+  padding: 8px 12px;
+  border-radius: 4px;
+}
+
+.sidebar__link.active,
+.sidebar__link:hover {
+  background: #252525;
+}
+
+.main {
+  flex: 1;
+  padding: 32px;
+  overflow-y: auto;
+}
+
+.section {
+  margin-bottom: 48px;
+}
+
+.section__title {
+  font-size: 1.25rem;
+  margin-bottom: 16px;
+}
+
+/* ---------- CARDS CONTAINER ---------- */
+.cards-container {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+
+/* hide default scrollbar, show thin custom */
+.cards-container::-webkit-scrollbar {
+  height: 6px;
+}
+
+.cards-container::-webkit-scrollbar-thumb {
+  background: var(--divider);
+  border-radius: 3px;
+}
+
+/* ---------- CARD ---------- */
+.card {
+  background: var(--card);
+  border-radius: 8px;
+  flex: 0 0 320px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Card header */
+.card__header {
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card__asset {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+}
+
+.card__asset img {
+  width: 20px;
+  height: 20px;
+}
+
+.card__trade {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.8rem;
+}
+
+.card__trade .type {
+  font-weight: 600;
+}
+
+.card__trade .type.sell {
+  color: var(--sell);
+}
+
+.card__trade .type.buy {
+  color: var(--buy);
+}
+
+/* Divider */
+.card__divider {
+  border: none;
+  border-top: 1px solid var(--divider);
+  margin: 0 16px;
+}
+
+/* Card body (rows) */
+.card__body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.row__left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.row__left .nickname {
+  font-size: 0.85rem;
+  color: var(--fg);
+}
+
+.row__left .price {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.row__left .available {
+  font-size: 0.75rem;
+  color: var(--fade);
+}
+
+.row__right {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.75rem;
+  text-align: right;
+  color: var(--fade);
+}
+
+.row__right .range {
+  color: var(--fg);
+}
+
+/* Highlight your own row */
+.row.highlight .nickname,
+.row.highlight .price {
+  color: var(--highlight);
+}
+
+.form-inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.form-inline select,
+.form-inline input {
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: #2a2a2a;
+  color: white;
+  border: none;
+  min-width: 160px;
+}
+
+.multiselect-wrapper {
+  position: relative;
+  min-width: 200px;
+}
+
+.multiselect-header {
+  background: #2a2a2a;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.multiselect-options {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #2a2a2a;
+  color: white;
+  border-radius: 8px;
+  padding: 8px;
+  max-height: 160px;
+  overflow-y: auto;
+  z-index: 100;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.multiselect-options label {
+  display: block;
+  margin: 4px 0;
+  cursor: pointer;
+}
+
+.multiselect-options input[type="checkbox"] {
+  margin-right: 8px;
+}
+
+
+.form-inline button {
+  padding: 8px 20px;
+  background: #444;
+  color: white;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+}
+
+.profile-list {
+  list-style: none;
+  padding: 0;
+}
+
+.profile-list li {
+  margin-bottom: 12px;
+  color: white;
+}
+
+.profile-list button {
+  margin-left: 12px;
+  padding: 4px 10px;
+  background: #aa3333;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .app {
+    flex-direction: column;
   }
-  
-  h1, h2 {
-    color: #333;
-  }
-  
-  form label {
-    display: block;
-    margin: 0.5em 0;
-  }
-  
-  input {
-    padding: 0.3em;
+
+  .sidebar {
     width: 100%;
-    box-sizing: border-box;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
   }
-  
-  button {
-    margin-top: 1em;
-    padding: 0.5em 1em;
-    cursor: pointer;
+
+  .sidebar__nav {
+    flex-direction: row;
+    gap: 12px;
   }
-  
-  #profile-list li {
-    margin: 0.5em 0;
+
+  .main {
+    padding: 16px;
   }
-  
-  .profile-card {
-    background: #fff;
-    border: 1px solid #ddd;
-    padding: 1em;
-    margin-bottom: 1em;
-    border-radius: 4px;
+
+  .cards-container {
+    flex-direction: column;
+    gap: 16px;
+    overflow-x: visible;
   }
-  
+
+  .card {
+    flex: 1 1 auto;
+    width: 100%;
+  }
+
+  .card__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .row {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .row__right {
+    text-align: left;
+  }
+
+  .form-inline {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .multiselect-wrapper,
+  .form-inline select,
+  .form-inline input {
+    width: 100%;
+    min-width: auto;
+  }
+}
