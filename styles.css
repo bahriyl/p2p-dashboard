@@ -351,3 +351,13 @@ body {
     min-width: auto;
   }
 }
+
+.refresh-btn {
+  margin-bottom: 24px;
+  padding: 8px 20px;
+  background: #444;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+}

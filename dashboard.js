@@ -54,12 +54,13 @@ function getIconUrl(asset) {
         });
 }
 
-// Fetch & render one section
-function renderSection(containerId, profiles) {
+// Fetch & render one section, preserving the order of `profiles`
+async function renderSection(containerId, profiles) {
     const container = document.getElementById(containerId);
     container.innerHTML = "";
 
-    profiles.forEach(profile => {
+    // 1️⃣ kick off all fetches in parallel, wrapping each result
+    const calls = profiles.map(profile =>
         fetch(`${BASE_API_URL}/api/binance-p2p`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -73,14 +74,19 @@ function renderSection(containerId, profiles) {
                 publisherType: null,
                 tradeType: profile.tradeType,
                 transAmount: profile.transAmount
-            }),
+            })
         })
             .then(r => r.json())
-            .then(data => container.appendChild(createCard(profile, data.data)))
-            .catch(e => {
-                console.error(e);
-                container.innerHTML += `<div class="card"><div class="card__body"><p style="color:#e03e3e">Помилка завантаження ${profile.asset}</p></div></div>`;
-            });
+            .then(json => ({ profile, items: json.data }))
+    );
+
+    // 2️⃣ wait for all of them
+    const results = await Promise.all(calls);
+
+    // 3️⃣ append in the exact same sequence
+    results.forEach(({ profile, items }) => {
+        const card = createCard(profile, items);
+        container.appendChild(card);
     });
 }
 
@@ -141,5 +147,10 @@ function createCard(profile, items) {
 // INIT
 document.addEventListener("DOMContentLoaded", () => {
     fetchAll();
-    setInterval(fetchAll, 30_000);
+
+    // manual refresh
+    const btn = document.getElementById("refresh-btn");
+    btn.addEventListener("click", fetchAll);
+
+    setInterval(fetchAll, 60_000);
 });

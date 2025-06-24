@@ -8,17 +8,41 @@ function saveProfiles(list) {
 }
 
 function renderProfiles() {
+  const profiles = getProfiles();
   const ul = document.getElementById("profile-list");
   ul.innerHTML = "";
-  getProfiles().forEach((p, i) => {
+
+  profiles.forEach((p, i) => {
     const li = document.createElement("li");
     li.textContent = `${p.asset} — ${p.tradeType} @ ${p.transAmount} (${p.section})`;
+    li.setAttribute("draggable", "true");
+    li.setAttribute("data-index", i);
+
+    // --- drag & drop handlers ---
+    li.addEventListener("dragstart", e => {
+      e.dataTransfer.setData("text/plain", i);
+    });
+    li.addEventListener("dragover", e => {
+      e.preventDefault(); // allow drop
+    });
+    li.addEventListener("drop", e => {
+      e.preventDefault();
+      const fromIdx = Number(e.dataTransfer.getData("text/plain"));
+      const toIdx = Number(li.getAttribute("data-index"));
+      const arr = getProfiles();
+      const [moved] = arr.splice(fromIdx, 1);
+      arr.splice(toIdx, 0, moved);
+      saveProfiles(arr);
+      renderProfiles();
+    });
+    // --------------------------------
+
     const btn = document.createElement("button");
     btn.textContent = "Delete";
     btn.onclick = () => {
-      const profiles = getProfiles();
-      profiles.splice(i, 1);
-      saveProfiles(profiles);
+      const arr = getProfiles();
+      arr.splice(i, 1);
+      saveProfiles(arr);
       renderProfiles();
     };
     li.appendChild(btn);
